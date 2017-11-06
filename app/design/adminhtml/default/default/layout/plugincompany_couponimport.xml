@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Coupon Import, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<layout>
+    <adminhtml_promo_quote_edit>
+        <reference name="promo_quote_edit_tab_coupons">
+            <block type="core/template" template="plugincompany/couponimport/Importform.phtml" name="promo_quote_edit_tab_coupons_importform" before="promo_quote_edit_tab_coupons_grid"/>
+        </reference>
+    </adminhtml_promo_quote_edit>
+    <adminhtml_couponimport_index_couponsgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="plugincompany_couponimport/adminhtml_promo_quote_coupons_grid" name="promo_quote_edit_tab_coupons_grid"/>
+        </block>
+    </adminhtml_couponimport_index_couponsgrid>
+</layout>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Coupon Import, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<config>
+    <modules>
+        <Plugincompany_Couponimport>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Plugincompany_Couponimport>
+    </modules>
+</config>

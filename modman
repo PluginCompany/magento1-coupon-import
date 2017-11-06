@@ -1,0 +1,4 @@
+app/code/local/Plugincompany/Couponimport app/code/local/Plugincompany/Couponimport
+app/design/adminhtml/default/default/layout/plugincompany_couponimport.xml app/design/adminhtml/default/default/layout/plugincompany_couponimport.xml
+app/design/adminhtml/default/default/template/plugincompany/couponimport app/design/adminhtml/default/default/template/plugincompany/couponimport
+app/etc/modules/Plugincompany_Couponimport.xml app/etc/modules/Plugincompany_Couponimport.xml

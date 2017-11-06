@@ -1,0 +1,15 @@
+{
+    "name": "plugincompany/magento1-coupon-import",
+    "description": "Coupon Import for Magento 1 / OpenMage",
+    "type": "magento-module",
+    "license": "MIT",
+    "homepage": "https://plugin.company/magento1-extensions/coupon-import.html",
+    "support": {
+        "issues": "https://github.com/PluginCompany/magento1-coupon-import/issues",
+        "source": "https://github.com/PluginCompany/magento1-coupon-import"
+    },
+    "version": "1.0.8",
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

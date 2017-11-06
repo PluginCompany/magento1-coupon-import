@@ -1,0 +1,119 @@
+<?php
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Coupon Import, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend">Import Custom Coupon Codes</h4>
+        <div class="form-buttons"></div>
+    </div>
+    <div id="importcouponvalidate" class="fieldset  ignore-validate">
+        <div class="hor-scroll">
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                <tr>
+                    <td class="label"><label for="csv_rule_import">Import .txt file with coupons</label></td>
+                    <td class="value">
+                        <form id="importCouponcodes" enctype="multipart/form-data" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/couponimport_index/importfile',array('id'=>Mage::app()->getRequest()->getParam('id')));?>" target="upload_target">
+                            <input id="csv_rule_import" name="csv_rule_import" value="" type="file" class="">
+                            <iframe id="upload_target" name="upload_target" src="" style="width:0;height:0;border:0px solid #fff;"></iframe>
+                            <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+                        </form>
+                </tr>
+                <tr>
+                    <td class="label"></td>
+                    <td class="value">
+                        <span ><button title="Import" type="button" class="scalable generate" onclick="importFile()"><span><span><span>Import File</span></span></span></button></span></td>
+                </tr>
+                <tr>
+                    <td class="label"><label for="paste_rule_import">Enter coupons (one per line)</label></td>
+                    <td class="value">
+                        <textarea name="paste_rule_import" cols="25" rows="5"></textarea>
+                </tr>
+                <tr>
+                    <td class="label"></td>
+                    <td class="value">
+                        <span id="coupons_import_button"><button id="importcouponcodes" title="Import" type="button" class="scalable generate" onclick="importCouponCodes()"><span><span><span>Import Coupons</span></span></span></button></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //   delete window['console'];
+    function init() {
+        //iframe hack for file upload
+        document.getElementById('importCouponcodes').onsubmit=function() {
+            document.getElementById('importCouponcodes').target = 'upload_target'; //'upload_target' is the name of the iframe
+        }
+    }
+    window.onload=init;
+
+    //displays message based on AJAX response
+    function showMessage(txt, type) {
+        var html = '<ul class="messages"><li class="'+type+'-msg"><ul><li>' + txt + '</li></ul></li></ul>';
+        $('messages').update(html);
+    }
+
+    //import file button click action
+    function importFile() {
+        document.forms["importCouponcodes"].submit()
+    }
+
+    //pasted coupon import
+    function importCouponCodes() {
+        //enable validation (by default validation is off because of parent pricerule form)
+        $('importcouponvalidate').removeClassName('ignore-validate');
+        var validationResult = $('importcouponvalidate').select('input',
+            'select', 'textarea').collect( function(elm) {
+            return Validation.validate(elm, {
+                useTitle :false,
+                onElementValidate : function() {
+                }
+            });
+        }).all();
+        $('importcouponvalidate').addClassName('ignore-validate');
+
+        if (!validationResult) {
+            return;
+        }
+
+        var elements = $('importcouponvalidate').select('input', 'select', 'textarea');
+
+        //coupon params
+        elements = elements.concat(
+            $$('#rule_uses_per_coupon'),
+            $$('#rule_uses_per_customer'),
+            $$('#rule_to_date')
+        );
+
+        var params = Form.serializeElements(elements, true);
+        params.form_key = FORM_KEY;
+        //init AJAX
+        new Ajax.Request('<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/couponimport_index/paste',array('id'=>Mage::app()->getRequest()->getParam('id'))); ?>', {
+            parameters :params,
+            method :'post',
+            onComplete : function (transport, param){
+                update();
+            }
+
+        });
+    }
+
+
+    //updates grid after ajax request
+    function update() {
+        var couponCodesGrid = eval(couponCodesGridJsObject);
+        if (couponCodesGrid) {
+            couponCodesGrid.reload();
+        }
+    }
+
+
+</script>

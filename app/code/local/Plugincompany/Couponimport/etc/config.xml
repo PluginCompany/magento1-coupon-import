@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2014-2026 Plugin Company
+ *
+ * This file is part of Coupon Import, released under the MIT License.
+ * See the LICENSE file in the project root.
+ */
+-->
+<config>
+    <modules>
+        <Plugincompany_Couponimport>
+            <version>1.0.8</version>
+        </Plugincompany_Couponimport>
+    </modules>
+    <global>
+        <models>
+            <plugincompany_couponimport>
+                <class>Plugincompany_Couponimport_Model</class>
+                <resourceModel>plugincompany_couponimport_resource</resourceModel>
+            </plugincompany_couponimport>
+            <plugincompany_couponimport_resource>
+                <class>Plugincompany_Couponimport_Model_Resource</class>
+            </plugincompany_couponimport_resource>
+        </models>
+        <blocks>
+            <plugincompany_couponimport>
+                <class>Plugincompany_Couponimport_Block</class>
+            </plugincompany_couponimport>
+        </blocks>
+        <helpers>
+            <plugincompany_couponimport>
+                <class>Plugincompany_Couponimport_Helper</class>
+            </plugincompany_couponimport>
+        </helpers>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+				<args>
+					<modules>
+						<couponimport before="Mage_Adminhtml">Plugincompany_Couponimport_Adminhtml</couponimport>
+					</modules>
+				</args>
+			</adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <plugincompany_couponimport>
+                    <file>plugincompany_couponimport.xml</file>
+                </plugincompany_couponimport>
+            </updates>
+        </layout>
+        <events>
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <plugincompany_couponimport>
+                        <type>model</type>
+                        <class>plugincompany_couponimport/observer</class>
+                        <method>coreBlockAbstractToHtmlBefore</method>
+                    </plugincompany_couponimport>
+                </observers>
+            </core_block_abstract_to_html_before>
+            <salesrule_rule_save_after>
+                <observers>
+                    <plugincompany_couponimport>
+                        <type>model</type>
+                        <class>plugincompany_couponimport/observer</class>
+                        <method>salesruleRuleSaveAfter</method>
+                    </plugincompany_couponimport>
+                </observers>
+            </salesrule_rule_save_after>
+        </events>
+    </adminhtml>
+
+</config>
